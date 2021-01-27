@@ -1,4 +1,4 @@
-import { Component, VERSION } from "@angular/core";
+import { ChangeDetectionStrategy, Component, VERSION } from "@angular/core";
 import { Observable } from "rxjs";
 import { tap } from "rxjs/operators";
 import { BookService } from "./book.service";
@@ -8,19 +8,26 @@ import { IBook } from "./IBook";
   selector: "my-app",
   templateUrl: "./app.component.html",
   styleUrls: ["./app.component.css"],
+  changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class AppComponent {
   name = "Book management";
-  genre = null;
-  books$: Observable<IBook[]>;
+  bk = null;
 
   constructor(private _bookService: BookService) {}
   ngOnInit() {
-    this.books$ = this._bookService.bookWithGenres$;
+    
   }
+  books$ = this._bookService.bookWithGenresAndAuthors$;
+  selectedBook$ = this._bookService.selectedBook$;
 
   bookClicked(book) {
-    this.genre = book.genre;
+    this.bk = book;
     console.log(book);
+    this._bookService.getBook(book);
+  }
+
+  addBook() {
+    console.log("Test");
   }
 }

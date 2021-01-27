@@ -1,15 +1,17 @@
 <h1>{{ name }}</h1>
 <h2>My books</h2>
-<div>
-	<div id="div1" *ngIf="books$ | async as books">
+<button (click)= "addBook()">Add Book</button>
+<div *ngIf="books$ | async as books">
+	<div id="div1" >
 		<button *ngFor="let book of books" (click)="bookClicked(book)">
       {{ book.name }}
     </button>
 	</div>
 	<div id="div2">
-		<p *ngIf="genre == null">
-			This is where the book info will be displayed when you click on a book!
-		</p>
-		<p *ngIf="genre != null">Genre: {{ genre }}</p>
+    <ul *ngIf="selectedBook$| async as selectedBook">
+      <li>Name: {{selectedBook.name}}</li>
+       <li>Author: {{ selectedBook.author}}</li>
+       <li>Genre: {{ selectedBook.genre}}</li>
+       </ul>
 	</div>
 </div>
