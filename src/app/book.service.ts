@@ -21,18 +21,13 @@ export class BookService {
   ) {}
 
   getDummyBooks() {
-    var book = this.createBook("The avenegers", 1, 1, 2);
-    var book2 = this.createBook("Atomic fallacy", 2, 2, 4.5);
-    var book3 = this.createBook("Future among us", 3, 3, 4);
+    var book = this.createBook("The avenegers", 1, 1);
+    var book2 = this.createBook("Atomic fallacy", 2, 2);
+    var book3 = this.createBook("Future among us", 3, 3);
     return of([book, book2, book3]).pipe(tap(book => console.log(book)));
   }
 
-  createBook(
-    name: string,
-    authorId: number,
-    genreId: number,
-    ratingId: number
-  ): IBook {
+  createBook(name: string, authorId: number, genreId: number): IBook {
     return { name: name, authorId: authorId, genreId: genreId };
   }
 
