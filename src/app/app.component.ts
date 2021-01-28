@@ -18,7 +18,7 @@ export class AppComponent {
   ngOnInit() {
     
   }
-  books$ = this._bookService.bookWithGenresAndAuthors$;
+  books$ = this._bookService.bookWithGenresAndAuthorsAndReviews$;
   selectedBook$ = this._bookService.selectedBook$;
 
   bookClicked(book) {

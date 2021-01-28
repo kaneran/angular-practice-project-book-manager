@@ -12,6 +12,9 @@
       <li>Name: {{selectedBook.name}}</li>
        <li>Author: {{ selectedBook.author}}</li>
        <li>Genre: {{ selectedBook.genre}}</li>
+       <li>Reviews:
+         <p *ngFor="let review of selectedBook.reviews">{{review}}</p>
+       </li>
        </ul>
 	</div>
 </div>
