@@ -36,7 +36,12 @@ export class BookService {
     authorId: number,
     genreId: number
   ): IBook {
-    return { bookId: bookId, name: name, authorId: authorId, genreId: genreId };
+    return {
+      bookId: bookId,
+      name: name,
+      authorId: authorId,
+      genreId: genreId
+    } as IBook;
   }
 
   bookWithGenresAndAuthorsAndReviews$ = combineLatest([
