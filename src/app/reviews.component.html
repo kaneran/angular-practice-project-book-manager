@@ -1,0 +1,4 @@
+<div *ngIf="selectedBook$ | async as book">
+  <h2>Reviews</h2>
+	<p *ngFor="let review of book.reviews">{{review}}</p>
+	<div>

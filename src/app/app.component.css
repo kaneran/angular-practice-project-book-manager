@@ -15,17 +15,11 @@ div {
   outline-style: solid;
   outline-color: #20486e;
   margin-left: 1px;
+  padding-top: 10px;
   display: block
 }
 
-#div2 ul li {
-  list-style-type: none;
-  font-family: Arial, Helvetica, sans-serif;
-  font-weight: bold;
-  font-style: italic;
-  font-size: 15px;
-  margin: auto;
-}
+
 
 #div1 {
   background-color: #20486e;
