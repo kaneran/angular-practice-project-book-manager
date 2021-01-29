@@ -13,12 +13,9 @@ import { IBook } from "./IBook";
 export class AppComponent {
   name = "Book management";
 
-
   constructor(private _bookService: BookService) {}
-  ngOnInit() {
-    
-  }
-  books$ = this._bookService.bookWithGenresAndAuthors$;
+  ngOnInit() {}
+  books$ = this._bookService.bookWithGenresAndAuthorsAndReviews$;
   selectedBook$ = this._bookService.selectedBook$;
 
   bookClicked(book) {
