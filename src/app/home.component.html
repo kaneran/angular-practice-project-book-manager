@@ -1,0 +1,13 @@
+<h2>My books</h2>
+<button (click)= "addBook()">Add Book</button>
+<div *ngIf="books$ | async as books">
+	<div id="div1">
+		<button *ngFor="let book of books" (click)="bookClicked(book)">
+      {{ book.name }}
+    </button>
+	</div>
+	<div id="div2">
+		<book-details [selectedBook$]="selectedBook$"></book-details>
+		<reviews [selectedBook$]="selectedBook$"></reviews>
+	</div>
+</div>

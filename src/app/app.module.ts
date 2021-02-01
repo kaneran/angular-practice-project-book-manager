@@ -6,14 +6,17 @@ import { AppComponent } from "./app.component";
 import { HelloComponent } from "./hello.component";
 import { BookDetailsComponent } from "./book-details.component";
 import { ReviewsComponent } from "./reviews.component";
+import { AppRoutingModule } from "./app-routing.module";
+import { HomeComponent } from "./home.component";
 
 @NgModule({
-  imports: [BrowserModule, FormsModule],
+  imports: [BrowserModule, FormsModule, AppRoutingModule],
   declarations: [
     AppComponent,
     HelloComponent,
     BookDetailsComponent,
-    ReviewsComponent
+    ReviewsComponent,
+    HomeComponent
   ],
   bootstrap: [AppComponent]
 })
