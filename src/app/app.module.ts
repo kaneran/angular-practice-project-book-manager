@@ -18,6 +18,6 @@ import { HomeComponent } from "./home.component";
     ReviewsComponent,
     HomeComponent
   ],
-  bootstrap: [AppComponent]
+  bootstrap: [AppComponent, HomeComponent]
 })
 export class AppModule {}
