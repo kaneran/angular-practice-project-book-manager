@@ -1,5 +1,5 @@
 <h2>My books</h2>
-<button (click)= "addBook()">Add Book</button>
+<button class="btn btn-primary" (click)= "addBook()">Add Book</button>
 <div *ngIf="books$ | async as books">
 	<div id="div1">
 		<button *ngFor="let book of books" (click)="bookClicked(book)">
