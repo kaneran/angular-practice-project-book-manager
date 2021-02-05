@@ -1,5 +1,12 @@
-<div *ngIf="selectedBook$| async as selectedBook">
-	<p>Name: {{selectedBook.name}}</p>
-	<p>Author: {{ selectedBook.author}}</p>
-	<p>Genre: {{ selectedBook.genre}}</p>
+<div *ngIf="selectedBook$| async as selectedBook" class="container">
+  <div class="row">
+    <div class="col font-weight-bold">Name</div>
+    <div class="col">{{selectedBook.name}}</div>
+    <div class="w-100"></div>
+    <div class="col font-weight-bold">Author</div>
+    <div class="col">{{ selectedBook.author}}</div>
+    <div class="w-100"></div>
+    <div class="col font-weight-bold">Genre</div>
+    <div class="col">{{ selectedBook.genre}}</div>
+  </div>
 </div>

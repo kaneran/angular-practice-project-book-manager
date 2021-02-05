@@ -12,6 +12,7 @@ import { IBook } from "./IBook";
 })
 export class HomeComponent {
   name = "Book management";
+  selectedBook: IBook;
 
   constructor(private _bookService: BookService) {}
   ngOnInit() {}
@@ -19,6 +20,7 @@ export class HomeComponent {
   selectedBook$ = this._bookService.selectedBook$;
 
   bookClicked(book) {
+    this.selectedBook = book;
     this._bookService.getBook(book);
   }
 

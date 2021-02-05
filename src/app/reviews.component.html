@@ -1,4 +1,6 @@
 <div *ngIf="selectedBook$ | async as book">
   <h2>Reviews</h2>
-	<p *ngFor="let review of book.reviews">{{review}}</p>
+  <ul class="list-group">
+  <li *ngFor="let review of book.reviews" class="list-group-item">{{review}}</li>
+</ul>
 	<div>

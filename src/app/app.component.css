@@ -10,7 +10,7 @@ ul {
   background-color: #dddddd;
 }
 
-li {
+li, .nav-item {
   float: left;
 }
 

@@ -1,11 +1,9 @@
 <h2>My books</h2>
-<button class="btn btn-primary" (click)= "addBook()">Add Book</button>
-<div *ngIf="books$ | async as books">
-	<div id="div1">
-		<button *ngFor="let book of books" (click)="bookClicked(book)">
-      {{ book.name }}
-    </button>
-	</div>
+<div>
+	<ul *ngIf="books$ | async as books" class="list-group">
+		<li *ngFor="let book of books" class="list-group-item" [ngClass]="{'active':selectedBook === book}" (click)="bookClicked(book)">{{ book.name }}</li>
+	</ul>
+
 	<div id="div2">
 		<book-details [selectedBook$]="selectedBook$"></book-details>
 		<reviews [selectedBook$]="selectedBook$"></reviews>
