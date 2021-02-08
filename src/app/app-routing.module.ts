@@ -6,7 +6,7 @@ import { HomeComponent } from "./home.component";
 
 const routes: Routes = [
   { path: "app-component", component: HomeComponent },
-  { path: "hello-component", component: AddBookComponent }
+  { path: "add-book-component", component: AddBookComponent }
 ]; // sets up routes constant where you define your routes
 
 // configures NgModule imports and exports
