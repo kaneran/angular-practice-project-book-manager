@@ -1,24 +1,26 @@
-
 <h2>Add book</h2>
-<form class="form-group">
-	
-		<label>Book name</label>
-		<input type="text" class="form-control" placeholder="Enter book name">
+<form [formGroup]='bookForm' class="form-group">
+
+	<label>Book name *</label>
+	<input type="text" class="form-control" placeholder="Enter book name" formControlName="name" [ngClass]="{'is-invalid': bookForm.get('name').errors}"/>
+  <div class="invalid-feedback" *ngIf="bookForm.get('name').errors?.invalidBook">
+    Please enter a valid book
+  </div>
 
     <label>Author</label>
-		<select class="form-control">
+	<select class="form-control" formControlName="author">
       <option selected>Select author</option>
       <option>2</option>
     </select>
 
-    <label>Genre</label>
-		<select class="form-control">
+	<label>Genre</label>
+	<select class="form-control" formControlName="genre">
       <option selected>Select genre</option>
       <option>2</option>
     </select>
 
-    <label>Rating</label>
-		<input type="number" class="form-control" placeholder="Enter rating">
+	<label>Rating</label>
+	<input type="number" class="form-control" placeholder="Enter rating" formControlName="rating">
 
-		<button type="submit" class="btn btn-success">Add book</button>
+	<button type="submit" class="btn btn-success" [disabled]="!bookForm.valid">Add book</button>
 </form>
