@@ -65,7 +65,7 @@ export class BookService {
     this.books$
       .pipe(
         map(books =>
-          books.filter(book => book.name === name).map(book => book.name)
+          books.filter(book => book.name.toLowerCase() === name.toLowerCase()).map(book => book.name)
         ),
         map(books => {
           if (books.length > 0) {
