@@ -6,6 +6,8 @@ import {
   ValidatorFn,
   Validators
 } from "@angular/forms";
+import { tap } from "rxjs/operators";
+import { BookService } from "./book.service";
 
 @Component({
   selector: "hello",
@@ -22,11 +24,12 @@ export class AddBookComponent implements OnInit {
   @Input() name: string;
   bookForm: FormGroup;
   errorMessage: string;
-  constructor(private fb: FormBuilder) {}
+  x: any;
+  constructor(private fb: FormBuilder, private _bookService: BookService) {}
   ngOnInit(): void {
-    this.errorMessage= "";
+    this.errorMessage = "";
     this.bookForm = this.fb.group({
-      name: ["", [Validators.required, this.validateBook]],
+      name: ["", [Validators.required, this.checkBookExists()]],
       author: "",
       genre: "",
       rating: ""
@@ -43,7 +46,17 @@ export class AddBookComponent implements OnInit {
   validateBook(control: AbstractControl): { [key: string]: boolean } | null {
     if (new String(control.value).toLowerCase().includes("book")) {
       //this.errorMessage = "This is not a valid book title";
-      return { "invalidBook": true };
+      return { invalidBook: true };
     }
+  }
+
+  checkBookExists(): ValidatorFn {
+    return (control: AbstractControl): { [key: string]: any } | null => {
+      let bookExists = this._bookService.checkIfBookExists(control.value);
+      if (bookExists) {
+        this.errorMessage = "This book already exists!";
+        return { invalidBook: true };
+      }
+    };
   }
 }

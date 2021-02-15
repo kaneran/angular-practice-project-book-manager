@@ -5,6 +5,7 @@ import { AppComponent } from "./app.component";
 import { AppRoutingModule } from "./app-routing.module";
 import { HomeComponent } from "./home.component";
 import { BookModule } from "./book.module";
+import { BookService } from "./book.service";
 
 @NgModule({
   imports: [
@@ -15,6 +16,7 @@ import { BookModule } from "./book.module";
     BookModule
   ],
   declarations: [AppComponent],
-  bootstrap: [AppComponent]
+  bootstrap: [AppComponent],
+  providers: [BookService]
 })
 export class AppModule {}

@@ -4,7 +4,7 @@
 	<label>Book name *</label>
 	<input type="text" class="form-control" placeholder="Enter book name" formControlName="name" [ngClass]="{'is-invalid': bookForm.get('name').errors}"/>
   <div class="invalid-feedback" *ngIf="bookForm.get('name').errors?.invalidBook">
-    Please enter a valid book
+    {{errorMessage}}
   </div>
 
     <label>Author</label>

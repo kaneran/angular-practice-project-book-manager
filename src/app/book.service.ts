@@ -6,9 +6,7 @@ import { GenreService } from "./genre.service";
 import { IBook } from "./IBook";
 import { ReviewService } from "./review.service";
 
-@Injectable({
-  providedIn: "root"
-})
+@Injectable()
 export class BookService {
   books$ = this.getDummyBooks();
   genres$ = this._genreSerivce.genres$;
@@ -61,6 +59,24 @@ export class BookService {
       }))
     )
   );
+
+  checkIfBookExists(name: string) {
+    let bookExists: boolean = false;
+    this.books$
+      .pipe(
+        map(books =>
+          books.filter(book => book.name === name).map(book => book.name)
+        ),
+        map(books => {
+          if (books.length > 0) {
+            bookExists = true;
+          }
+        })
+      )
+      .subscribe();
+    console.log(bookExists);
+    return bookExists;
+  }
 
   getBookGenre(book: IBook) {}
 
