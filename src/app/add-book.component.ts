@@ -24,7 +24,6 @@ export class AddBookComponent implements OnInit {
   @Input() name: string;
   bookForm: FormGroup;
   errorMessage: string;
-  x: any;
   constructor(private fb: FormBuilder, private _bookService: BookService) {}
   ngOnInit(): void {
     this.errorMessage = "";
@@ -40,13 +39,6 @@ export class AddBookComponent implements OnInit {
     if (control.touched || (control.dirty && !control.valid)) {
       this.errorMessage = "This is not a valid value";
       return { key: "Not valid" };
-    }
-  }
-
-  validateBook(control: AbstractControl): { [key: string]: boolean } | null {
-    if (new String(control.value).toLowerCase().includes("book")) {
-      //this.errorMessage = "This is not a valid book title";
-      return { invalidBook: true };
     }
   }
 
