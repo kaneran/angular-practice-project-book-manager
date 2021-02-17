@@ -25,7 +25,7 @@ export class BookService {
     var book = this.createBook(1, "The avenegers", 1, 1);
     var book2 = this.createBook(2, "Atomic fallacy", 2, 2);
     var book3 = this.createBook(3, "Future among us", 3, 3);
-    return of([book, book2, book3]).pipe(tap(book => console.log(book)));
+    return of([book, book2, book3]).pipe();
   }
 
   createBook(
@@ -65,7 +65,9 @@ export class BookService {
     this.books$
       .pipe(
         map(books =>
-          books.filter(book => book.name.toLowerCase() === name.toLowerCase()).map(book => book.name)
+          books
+            .filter(book => book.name.toLowerCase() === name.toLowerCase())
+            .map(book => book.name)
         ),
         map(books => {
           if (books.length > 0) {
@@ -86,8 +88,7 @@ export class BookService {
   ]).pipe(
     map(([books, selectedBook]) =>
       books.find(book => book.name === selectedBook.name)
-    ),
-    tap(book => console.log(book))
+    )
   );
 
   getBook(book: IBook) {

@@ -1,23 +1,25 @@
-import { Injectable } from '@angular/core';
-import { of } from 'rxjs';
-import { tap } from 'rxjs/operators';
-import { IGenre } from './IGenre';
-
+import { Injectable } from "@angular/core";
+import { of } from "rxjs";
+import { map, tap } from "rxjs/operators";
+import { IGenre } from "./IGenre";
 
 @Injectable({
-  providedIn: 'root',
+  providedIn: "root"
 })
-
-export class GenreService{
+export class GenreService {
   genres$ = this.getDummyGenres();
-  getDummyGenres(){
+  getDummyGenres() {
     var genre = this.createGenre(1, "Crime");
     var genre2 = this.createGenre(2, "Poetry");
     var genre3 = this.createGenre(3, "Education");
-    return  of([genre,genre2,genre3]).pipe(tap(genre => console.log(genre)));
+    return of([genre, genre2, genre3]).pipe();
   }
 
-  createGenre(genreId: number, genreLabel: string): IGenre{
-    return {genreId:genreId, genreLabel:genreLabel}
+  createGenre(genreId: number, genreLabel: string): IGenre {
+    return { genreId: genreId, genreLabel: genreLabel };
+  }
+
+  getGenres() {
+    return this.genres$.pipe(map(genres => genres.map(g => g.genreLabel)));
   }
 }

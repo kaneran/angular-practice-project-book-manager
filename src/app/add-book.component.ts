@@ -6,8 +6,12 @@ import {
   ValidatorFn,
   Validators
 } from "@angular/forms";
-import { tap } from "rxjs/operators";
+import { Observable } from "rxjs";
+import { map, tap } from "rxjs/operators";
+import { AuthorService } from "./author.service";
 import { BookService } from "./book.service";
+import { GenreService } from "./genre.service";
+import { IGenre } from "./IGenre";
 
 @Component({
   selector: "hello",
@@ -24,7 +28,14 @@ export class AddBookComponent implements OnInit {
   @Input() name: string;
   bookForm: FormGroup;
   errorMessage: string;
-  constructor(private fb: FormBuilder, private _bookService: BookService) {}
+  genres$: Observable<string[]>;
+  authors$: Observable<string[]>;
+  constructor(
+    private fb: FormBuilder,
+    private _bookService: BookService,
+    private _genreService: GenreService,
+    private _authorService: AuthorService
+  ) {}
   ngOnInit(): void {
     this.errorMessage = "";
     this.bookForm = this.fb.group({
@@ -33,6 +44,8 @@ export class AddBookComponent implements OnInit {
       genre: "",
       rating: ""
     });
+    this.genres$ = this._genreService.getGenres()
+    this.authors$ = this._authorService.getAuthorNames();
   }
 
   validateFormControl(control: AbstractControl): { [key: string]: any } | null {

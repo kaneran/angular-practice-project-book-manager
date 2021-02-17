@@ -1,6 +1,6 @@
 import { Injectable } from "@angular/core";
 import { of } from "rxjs";
-import { tap } from "rxjs/operators";
+import { map, tap } from "rxjs/operators";
 import { IAuthor } from "./IAuthor";
 import { IGenre } from "./IGenre";
 
@@ -15,6 +15,12 @@ export class AuthorService {
     var author3 = this.createAuthor(3, "Bryan Smuggles");
     return of([author, author2, author3]).pipe(
       tap(author => console.log(author))
+    );
+  }
+
+  getAuthorNames() {
+    return this.authors$.pipe(
+      map(authors => authors.map(author => author.authorName))
     );
   }
 

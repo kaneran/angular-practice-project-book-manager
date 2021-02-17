@@ -8,15 +8,15 @@
   </div>
 
     <label>Author</label>
-	<select class="form-control" formControlName="author">
+	<select *ngIf="authors$ | async as authors" class="form-control" formControlName="author">
       <option selected>Select author</option>
-      <option>2</option>
+      <option *ngFor="let author of authors">{{author}}</option>
     </select>
 
 	<label>Genre</label>
-	<select class="form-control" formControlName="genre">
+	<select *ngIf="genres$ | async as genres" class="form-control" formControlName="genre">
       <option selected>Select genre</option>
-      <option>2</option>
+      <option *ngFor="let genre of genres">{{genre}}</option>
     </select>
 
 	<label>Rating</label>
