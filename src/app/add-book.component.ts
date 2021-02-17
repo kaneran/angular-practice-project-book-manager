@@ -27,7 +27,8 @@ import { IGenre } from "./IGenre";
 export class AddBookComponent implements OnInit {
   @Input() name: string;
   bookForm: FormGroup;
-  errorMessage: string;
+  nameErrorMessage: string;
+  ratingErrorMessage: string;
   genres$: Observable<string[]>;
   authors$: Observable<string[]>;
   constructor(
@@ -37,20 +38,21 @@ export class AddBookComponent implements OnInit {
     private _authorService: AuthorService
   ) {}
   ngOnInit(): void {
-    this.errorMessage = "";
+    this.nameErrorMessage = "";
+    this.ratingErrorMessage = "";
     this.bookForm = this.fb.group({
       name: ["", [Validators.required, this.checkBookExists()]],
       author: "",
       genre: "",
-      rating: ""
+      rating: ["0", this.inRange(1, 5)]
     });
-    this.genres$ = this._genreService.getGenres()
+    this.genres$ = this._genreService.getGenres();
     this.authors$ = this._authorService.getAuthorNames();
   }
 
   validateFormControl(control: AbstractControl): { [key: string]: any } | null {
     if (control.touched || (control.dirty && !control.valid)) {
-      this.errorMessage = "This is not a valid value";
+      this.nameErrorMessage = "This is not a valid value";
       return { key: "Not valid" };
     }
   }
@@ -59,8 +61,17 @@ export class AddBookComponent implements OnInit {
     return (control: AbstractControl): { [key: string]: any } | null => {
       let bookExists = this._bookService.checkIfBookExists(control.value);
       if (bookExists) {
-        this.errorMessage = "This book already exists!";
+        this.nameErrorMessage = "This book already exists!";
         return { invalidBook: true };
+      }
+    };
+  }
+
+  inRange(min: number, max: number): ValidatorFn {
+    return (control: AbstractControl): { [key: string]: any } | null => {
+      if (control.value > max || control.value < min) {
+        this.ratingErrorMessage = `Please enter a rating between ${min} and ${max}`;
+        return { invalidRating: true };
       }
     };
   }

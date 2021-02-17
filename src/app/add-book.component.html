@@ -3,11 +3,11 @@
 
 	<label>Book name *</label>
 	<input type="text" class="form-control" placeholder="Enter book name" formControlName="name" [ngClass]="{'is-invalid': bookForm.get('name').errors}"/>
-  <div class="invalid-feedback" *ngIf="bookForm.get('name').errors?.invalidBook">
-    {{errorMessage}}
-  </div>
+	<div class="invalid-feedback" *ngIf="bookForm.get('name').errors?.invalidBook">
+		{{nameErrorMessage}}
+	</div>
 
-    <label>Author</label>
+	<label>Author</label>
 	<select *ngIf="authors$ | async as authors" class="form-control" formControlName="author">
       <option selected>Select author</option>
       <option *ngFor="let author of authors">{{author}}</option>
@@ -20,7 +20,9 @@
     </select>
 
 	<label>Rating</label>
-	<input type="number" class="form-control" placeholder="Enter rating" formControlName="rating">
-
+	<input type="number" class="form-control" placeholder="Enter rating" formControlName="rating" [ngClass] ="{'is-invalid': bookForm.get('rating').errors}">
+	<div class="invalid-feedback" *ngIf="bookForm.get('rating').errors?.invalidRating">
+		{{ratingErrorMessage}}
+	</div>
 	<button type="submit" class="btn btn-success" [disabled]="!bookForm.valid">Add book</button>
 </form>
