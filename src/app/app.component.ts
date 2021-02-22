@@ -7,7 +7,7 @@ import { IBook } from "./IBook";
 @Component({
   selector: "my-app",
   templateUrl: "./app.component.html",
-  styleUrls: ["./app.component.css"],
+  styleUrls: ["./app.component.css", "./add-book.component.css"],
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class AppComponent {

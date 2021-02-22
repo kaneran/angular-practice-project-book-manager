@@ -1,7 +1,9 @@
 import { Component, Input, OnInit } from "@angular/core";
 import {
   AbstractControl,
+  FormArray,
   FormBuilder,
+  FormControl,
   FormGroup,
   ValidatorFn,
   Validators
@@ -37,17 +39,43 @@ export class AddBookComponent implements OnInit {
     private _genreService: GenreService,
     private _authorService: AuthorService
   ) {}
+
   ngOnInit(): void {
     this.nameErrorMessage = "";
     this.ratingErrorMessage = "";
     this.bookForm = this.fb.group({
       name: ["", [Validators.required, this.checkBookExists()]],
-      author: "",
-      genre: "",
+      genres: this.fb.array([this.buildGenre()]),
+      authors: this.fb.array([this.buildAuthor()]),
       rating: ["0", this.inRange(1, 5)]
     });
     this.genres$ = this._genreService.getGenres();
     this.authors$ = this._authorService.getAuthorNames();
+    console.log(this.bookForm);
+  }
+
+  addGenre() {
+    this.genres.push(this.buildGenre());
+  }
+
+  addAuthor() {
+    this.authors.push(this.buildAuthor());
+  }
+
+  buildGenre(): FormControl {
+    return new FormControl("");
+  }
+
+  buildAuthor(): FormControl {
+    return new FormControl("");
+  }
+
+  get genres(): FormArray {
+    return <FormArray>this.bookForm.get("genres");
+  }
+
+  get authors(): FormArray {
+    return <FormArray>this.bookForm.get("authors");
   }
 
   validateFormControl(control: AbstractControl): { [key: string]: any } | null {
