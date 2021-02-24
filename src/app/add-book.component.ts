@@ -9,7 +9,7 @@ import {
   Validators
 } from "@angular/forms";
 import { Observable } from "rxjs";
-import { map, tap } from "rxjs/operators";
+import { debounceTime, map, tap } from "rxjs/operators";
 import { AuthorService } from "./author.service";
 import { BookService } from "./book.service";
 import { GenreService } from "./genre.service";
@@ -51,7 +51,10 @@ export class AddBookComponent implements OnInit {
     });
     this.genres$ = this._genreService.getGenres();
     this.authors$ = this._authorService.getAuthorNames();
-    console.log(this.bookForm);
+    const bookNameControl = this.bookForm.get("name");
+    bookNameControl.valueChanges
+      .pipe(debounceTime(1000))
+      .subscribe(value => this.validateFormControl(bookNameControl));
   }
 
   addGenre() {
@@ -79,9 +82,12 @@ export class AddBookComponent implements OnInit {
   }
 
   validateFormControl(control: AbstractControl): { [key: string]: any } | null {
-    if (control.touched || (control.dirty && !control.valid)) {
+    this.nameErrorMessage = "";
+    console.log(control);
+    if (control.value.length < 2) {
       this.nameErrorMessage = "This is not a valid value";
-      return { key: "Not valid" };
+      console.log(this.nameErrorMessage);
+      return { invalidBook: true };
     }
   }
 

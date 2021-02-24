@@ -2,8 +2,8 @@
 <form [formGroup]='bookForm' class="form-group">
 
 	<label>Book name *</label>
-	<input type="text" class="form-control" placeholder="Enter book name" formControlName="name" [ngClass]="{'is-invalid': bookForm.get('name').errors}"/>
-	<div class="invalid-feedback" *ngIf="bookForm.get('name').errors?.invalidBook">
+	<input type="text" class="form-control" placeholder="Enter book name" formControlName="name" [ngClass]="{'is-invalid': nameErrorMessage}"/>
+	<div class="invalid-feedback">
 		{{nameErrorMessage}}
 	</div>
 
