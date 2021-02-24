@@ -47,7 +47,7 @@ export class AddBookComponent implements OnInit {
       name: ["", [Validators.required, this.checkBookExists()]],
       genres: this.fb.array([this.buildGenre()]),
       authors: this.fb.array([this.buildAuthor()]),
-      rating: ["0", this.inRange(1, 5)]
+      rating: ["", this.inRange(1, 5)]
     });
     this.genres$ = this._genreService.getGenres();
     this.authors$ = this._authorService.getAuthorNames();
@@ -55,6 +55,8 @@ export class AddBookComponent implements OnInit {
     bookNameControl.valueChanges
       .pipe(debounceTime(1000))
       .subscribe(value => this.validateFormControl(bookNameControl));
+    const ratingControl = this.bookForm.get('rating');
+    ratingControl.valueChanges.pipe(debounceTime(1000)).subscribe(value => this.validateNumericFormControl(ratingControl))
   }
 
   addGenre() {
@@ -81,6 +83,14 @@ export class AddBookComponent implements OnInit {
     return <FormArray>this.bookForm.get("authors");
   }
 
+  validateNumericFormControl(control: AbstractControl): { [key: string]: any } | null {
+    console.log(control);
+    if (control.value?.length === 0) {
+       this.ratingErrorMessage = "";
+      return { invalidRating: false };
+    }
+  }
+
   validateFormControl(control: AbstractControl): { [key: string]: any } | null {
     this.nameErrorMessage = "";
     console.log(control);
@@ -103,7 +113,8 @@ export class AddBookComponent implements OnInit {
 
   inRange(min: number, max: number): ValidatorFn {
     return (control: AbstractControl): { [key: string]: any } | null => {
-      if (control.value > max || control.value < min) {
+      this.ratingErrorMessage = "";
+      if ((control.value > max || control.value < min ) && control.value) {
         this.ratingErrorMessage = `Please enter a rating between ${min} and ${max}`;
         return { invalidRating: true };
       }
